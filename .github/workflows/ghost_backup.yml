@@ -18,7 +18,6 @@ jobs:
     env:
         GHOST_URL: ${{ secrets.GHOST_URL }}
         GHOST_KEY: ${{ secrets.GHOST_KEY }}
-        GHOST_VERSION: ${{ secrets.GHOST_VERSION }}
       
 
     steps:

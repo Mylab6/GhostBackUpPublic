@@ -4,7 +4,7 @@ var fs = require('fs');
 var api = new GhostAdminAPI({
   url: process.env.GHOST_URL,
   key: process.env.GHOST_KEY,
-  version: process.env.GHOST_VERSION
+  version: 'v5.51.1'
 });
 
 // Prepare an object to hold all our data
