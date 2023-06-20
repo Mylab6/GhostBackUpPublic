@@ -2,40 +2,59 @@ name: Ghost Backup
 
 on:
   schedule:
-    # Run workflow every day at 7 AM UTC
-    - cron: '0 7 * * *'
+    # Run workflow every day at 1 AM UTC
+    - cron: '0 1 * * *'
   workflow_dispatch:  # Manual dispatch trigger 
 
 jobs:
-  build:
-    strategy:
-        matrix:
-          environment: ['RyhmesWorldWide', 'BestQuestGames']
-          node-version: [19.x]
-
+  backup_ryhmesworldwide:
     runs-on: ubuntu-latest
-
+    environment: RyhmesWorldWide
     env:
-        GHOST_URL: ${{ secrets.GHOST_URL }}
-        GHOST_KEY: ${{ secrets.GHOST_KEY }}
-      
-
+      GHOST_URL: ${{ secrets.GHOST_URL }}
+      GHOST_KEY: ${{ secrets.GHOST_KEY }}
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js 19.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '19.x'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run rss_feed_reader.js
-      run: node backup-script.js
+      - name: Run backup-script.js
+        run: node backup-script.js
 
-    - name: Archive backup
-      uses: actions/upload-artifact@v2
-      with:
-        name: ghost-backup
-        path: ghost-backup.json
+      - name: Archive backup
+        uses: actions/upload-artifact@v2
+        with:
+          name: ghost-backup
+          path: ghost-backup.json
+
+  backup_bestquestgames:
+    runs-on: ubuntu-latest
+    environment: BestQuestGames
+    env:
+      GHOST_URL: ${{ secrets.GHOST_URL }}
+      GHOST_KEY: ${{ secrets.GHOST_KEY }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 19.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: '19.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run backup-script.js
+        run: node backup-script.js
+
+      - name: Archive backup
+        uses: actions/upload-artifact@v2
+        with:
+          name: ghost-backup
+          path: ghost-backup.json
