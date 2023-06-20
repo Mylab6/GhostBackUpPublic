@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
         matrix:
-          environment: ['dev', 'prod']
+          environment: ['RyhmesWorldWide', 'BestQuestGames']
           node-version: [19.x]
 
     runs-on: ubuntu-latest
