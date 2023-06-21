@@ -6,9 +6,9 @@ test('Download file', async ({ page }) => {
   // Set the download directory path
   const downloadDirectory = path.resolve(__dirname, 'downloads');
 
-  await page.goto(process.env.ghost_lab_url);
-  await page.locator('[autocomplete="username"]').type(process.env.ghost_lab_username);
-  await page.locator('[autocomplete="current-password"]').type(process.env.ghost_lab_password);
+  await page.goto(process.env.GHOST_LAB_URL);
+  await page.locator('[autocomplete="username"]').type(process.env.GHOST_LAB_USERNAME);
+  await page.locator('[autocomplete="current-password"]').type(process.env.GHOST_LAB_PASSWORD);
   await page.locator('#ember11').click();
 
   // Set the download directory for the current browser context
