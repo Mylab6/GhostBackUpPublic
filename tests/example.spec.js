@@ -12,7 +12,7 @@ test('Download file', async ({ page }) => {
   await page.locator('#ember11').click();
 
   // Set the download directory for the current browser context
-  await page.context().setDefaultDownloadOptions({ directory: downloadDirectory });
+  //await page.context().setDefaultDownloadOptions({ directory: downloadDirectory });
 
   await page.locator(`'[data-ember-action-328="328"]'`).click();
 
