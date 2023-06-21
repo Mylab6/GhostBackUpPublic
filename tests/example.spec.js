@@ -20,7 +20,7 @@ test('Download file', async ({ page }) => {
   // Set the download directory for the current browser context
   // await page.context().setDefaultDownloadOptions({ directory: downloadDirectory });
 
-  await page.locator(`'[data-ember-action-328="328"]'`).click();
+  await page.locator('[data-ember-action-328="328"]').click();
 
   // Wait for the download event to occur
   const download = await page.waitForEvent('download');
