@@ -32,28 +32,3 @@ jobs:
         with:
           name: rss-feed.xml
           path: rss-feed.xml
-  backup_bestquestgames:
-    runs-on: ubuntu-latest
-    environment: BestQuestGames
-    env:
-      GHOST_URL: ${{ secrets.GHOST_URL }}
-      GHOST_KEY: ${{ secrets.GHOST_KEY }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 19.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: '19.x'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run backup-script.js
-        run: node backup-script.js
-
-      - name: Archive backup
-        uses: actions/upload-artifact@v2
-        with:
-          name: rss-feed.xml
-          path: rss-feed.xml
