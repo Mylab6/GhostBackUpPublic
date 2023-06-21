@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 test('Download file', async ({ page }) => {
+  test.slow();
   // Set the download directory path
   page.on('console', msg => console.log(msg.text()))
 
