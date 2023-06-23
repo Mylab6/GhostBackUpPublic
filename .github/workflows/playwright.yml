@@ -10,24 +10,50 @@ jobs:
     timeout-minutes: 60
     environment: RyhmesWorldWide
     runs-on: ubuntu-latest
-
     env:
       GHOST_LAB_URL: ${{ secrets.GHOST_LAB_URL }}
       GHOST_LAB_USERNAME: ${{ secrets.GHOST_LAB_USERNAME }}
       GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
- 
     steps:
-    - uses: ../.github/actions/setup-playwright
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm install
+    - run: npx playwright install --with-deps
+    - run: npx playwright test
+    - run: |
+        mkdir -p artifacts
+        mv downloads/* artifacts/
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-downloaded-file
+        path: artifacts/
+        retention-days: 30
 
   test_BestQuestGames:
     timeout-minutes: 60
     environment: BestQuestGames
     runs-on: ubuntu-latest
-
     env:
       GHOST_LAB_URL: ${{ secrets.GHOST_LAB_URL }}
       GHOST_LAB_USERNAME: ${{ secrets.GHOST_LAB_USERNAME }}
       GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
- 
     steps:
-    - uses: ../.github/actions/setup-playwright
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - run: npm install
+    - run: npx playwright install --with-deps
+    - run: npx playwright test
+    - run: |
+        mkdir -p artifacts
+        mv downloads/* artifacts/
+    - uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: playwright-downloaded-file
+        path: artifacts/
+        retention-days: 30
