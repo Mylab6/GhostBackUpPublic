@@ -6,7 +6,7 @@ on:
     - cron: '0 1 * * *'
 
 jobs:
-  test:
+  test_RyhmesWorldWide:
     timeout-minutes: 60
     environment: RyhmesWorldWide
     runs-on: ubuntu-latest
@@ -16,31 +16,18 @@ jobs:
       GHOST_LAB_USERNAME: ${{ secrets.GHOST_LAB_USERNAME }}
       GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
  
-
     steps:
-    - uses: actions/checkout@v3
+    - uses: ./.github/actions/setup-playwright
 
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 16
+  test_BestQuestGames:
+    timeout-minutes: 60
+    environment: BestQuestGames
+    runs-on: ubuntu-latest
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
-    - name: Run Playwright tests
-      run: npx playwright test
-
-    - name: Move downloaded file to artifact directory
-      run: |
-        mkdir -p artifacts
-        mv downloads/* artifacts/
-
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: playwright-downloaded-file
-        path: artifacts/
-        retention-days: 30
+    env:
+      GHOST_LAB_URL: ${{ secrets.GHOST_LAB_URL }}
+      GHOST_LAB_USERNAME: ${{ secrets.GHOST_LAB_USERNAME }}
+      GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
+ 
+    steps:
+    - uses: ./.github/actions/setup-playwright
