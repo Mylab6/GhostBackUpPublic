@@ -17,7 +17,7 @@ jobs:
       GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
  
     steps:
-    - uses: ./.github/actions/setup-playwright
+    - uses: ../.github/actions/setup-playwright
 
   test_BestQuestGames:
     timeout-minutes: 60
@@ -30,4 +30,4 @@ jobs:
       GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
  
     steps:
-    - uses: ./.github/actions/setup-playwright
+    - uses: ../.github/actions/setup-playwright
