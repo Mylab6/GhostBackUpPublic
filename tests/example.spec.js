@@ -19,11 +19,12 @@ test('Download file', async ({ page, context }) => {
   await page.locator('[autocomplete="username"]').type(process.env.GHOST_LAB_USERNAME);
   await page.locator('[autocomplete="current-password"]').type(process.env.GHOST_LAB_PASSWORD);
  // await page.locator('#ember11').click();
-  await page.evaluate(() => $('#ember11').click());
-  await page.locator('#ember34').click(); 
+  await page.locator('.gh-btn-login').click();
+ // await page.evaluate(() => $('#ember11').click());
+  await page.locator('[href="#/settings/"]').click(); 
   // Set the download directory for the current browser context
   // await page.context().setDefaultDownloadOptions({ directory: downloadDirectory });
-  await page.locator('#ember66').click();
+  await page.locator('[href="#/settings/labs/"]').click();
 
   await page.locator('span:text("Export")').click();
   // Wait for the download event to occur
