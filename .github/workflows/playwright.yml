@@ -21,15 +21,22 @@ jobs:
         node-version: 16
     - run: npm install
     - run: npx playwright install --with-deps
-    - run: npx playwright test
-    - run: |
+    - name: Run Backup Script
+      run: |
         mkdir -p artifacts
-        mv downloads/* artifacts/
-    - uses: actions/upload-artifact@v3
-      if: always()
+
+        # Run tests with trace capture only on failure
+        npx playwright test --trace retain-on-failure
+
+    # Upload trace files and downloads on failure
+    - name: Upload Trace and Downloads
+      uses: actions/upload-artifact@v3
       with:
-        name: playwright-downloaded-file
-        path: artifacts/
+        name: playwright-artifacts
+        path: |
+          downloads/
+          artifacts/
+          test-results/**/*.zip
         retention-days: 30
 
   test_BestQuestGames:
@@ -47,13 +54,20 @@ jobs:
         node-version: 16
     - run: npm install
     - run: npx playwright install --with-deps
-    - run: npx playwright test
-    - run: |
+    - name: Run Backup Script
+      run: |
         mkdir -p artifacts
-        mv downloads/* artifacts/
-    - uses: actions/upload-artifact@v3
-      if: always()
+
+        # Run tests with trace capture only on failure
+        npx playwright test --trace retain-on-failure
+
+    # Upload trace files and downloads on failure
+    - name: Upload Trace and Downloads
+      uses: actions/upload-artifact@v3
       with:
-        name: playwright-downloaded-file
-        path: artifacts/
+        name: playwright-artifacts
+        path: |
+          artifacts/
+          downloads/
+          test-results/**/*.zip
         retention-days: 30
