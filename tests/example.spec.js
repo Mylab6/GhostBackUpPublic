@@ -2,6 +2,8 @@
 const { test, expect } = require('@playwright/test');
 const path = require('path');
 const fs = require('fs');
+require('dotenv').config(); // Load environment variables from .env
+
 
 test('Download file', async ({ page, context }) => {
 
@@ -22,18 +24,24 @@ test('Download file', async ({ page, context }) => {
   await page.locator('.gh-btn-login').click();
  // await page.evaluate(() => $('#ember11').click());
   await page.locator('[href="#/settings/"]').click(); 
-  // Set the download directory for the current browser context
-  // await page.context().setDefaultDownloadOptions({ directory: downloadDirectory });
-  await page.locator('[href="#/settings/labs/"]').click();
+  await page.waitForSelector('#export', { timeout: 90000 });
+  const searchInput = page.locator('input[placeholder="Search settings"]');
 
-  await page.locator('span:text("Export")').click();
+  await searchInput.fill('export');
+  await page.locator('#export').click();
+  await page.locator('[id*="content-export"] button').click();
+
   // Wait for the download event to occur
   const download = await page.waitForEvent('download');
-
   // Save the downloaded file
  // console.log(await download.path());
   //
 
   const filePath = path.join(downloadDirectory, download.suggestedFilename());
   await download.saveAs(filePath);
+
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Download failed: File not found at ${filePath}`);
+  }
+  console.log('See:' + filePath)
 });
