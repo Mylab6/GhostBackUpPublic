@@ -5,3 +5,6 @@ This is really rough, but it get's the job done. MIT, so feel free to use it com
 Set these 3 variables:
 
 GHOST_LAB_URL: ${{ secrets.GHOST_LAB_URL }}   // Your Ghost url GHOST_LAB_USERNAME: ${{ secrets.GHOST_LAB_USERNAME }}     GHOST_LAB_PASSWORD: ${{ secrets.GHOST_LAB_PASSWORD }}
+
+
+Updated for Ghost Blog Version: 5.96.0, 
